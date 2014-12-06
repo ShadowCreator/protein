@@ -1,7 +1,5 @@
 #!/usr/bin/env python3
 
-#######TODO
-#Refactor?
 
 import argparse
 import sys
