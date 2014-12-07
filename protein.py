@@ -46,13 +46,10 @@ if input_type != "aa" and input_type != "mrna" and input_type != "dna":
     #verbose only: print("Not DNA, mRNA and AA. Please change your input type")
     sys.exit(1)
 
-# output and input shouldn't be the same
-if output_type == input_type:
-    #verbose message
-    sys.exit(1)
-
 # do the transformation
-if input_type == "dna" and output_type == "mrna":
+if output_type == input_type:
+    sequence = sequence
+elif input_type == "dna" and output_type == "mrna":
     sequence = dnaToRna(sequence)
 
 
