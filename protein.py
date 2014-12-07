@@ -20,6 +20,23 @@ def dnaToRna(sequencetochange):
             sys.exit(1)
     return sequencetochange
 
+def rnaToDna(sequencetochange):
+    for index, base in enumerate(sequencetochange):
+        if base == "a":
+            sequencetochange[index] = "t"
+        elif base == "u":
+            sequencetochange[index] = "a"
+        elif base == "g":
+            sequencetochange[index] = "c"
+        elif base == "c":
+            sequencetochange[index] = "g"
+        elif base == "-" or base == ",":
+            sequencetochange[index] = base
+        else:
+            # verbose message
+            sys.exit(1)
+    return sequencetochange
+
 
 parser = argparse.ArgumentParser()
 parser.add_argument("input_type", help="this is the format the input should be: DNA, mRNA or AA")
@@ -51,6 +68,8 @@ if output_type == input_type:
     sequence = sequence
 elif input_type == "dna" and output_type == "mrna":
     sequence = dnaToRna(sequence)
+elif input_type == "mrna" and output_type == "dna":
+    sequence = rnaToDna(sequence)
 
 
 out_sequence = ''.join(sequence).upper()
