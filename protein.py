@@ -5,8 +5,8 @@ import argparse
 import sys
 
 parser = argparse.ArgumentParser()
-parser.add_argument("output_type", help="this is the format the output should be: DNA, mRNA or AA")
 parser.add_argument("input_type", help="this is the format the input should be: DNA, mRNA or AA")
+parser.add_argument("output_type", help="this is the format the output should be: DNA, mRNA or AA")
 parser.add_argument("sequence",
                     help="this is a sequence of DNA, mRNA or AA whith both - and , allowed as separators")
 parser.add_argument("-v", "--verbose", action="store_true",
