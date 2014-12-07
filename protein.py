@@ -82,5 +82,5 @@ elif input_type == "mrna" and output_type == "dna":
 elif input_type == "mrna" and output_type == "aa":
     sequence = rnaToAa(sequence)
 
-out_sequence = ''.join(sequence).upper()
-print(out_sequence)
+sequence = ''.join(sequence).upper()
+print(sequence)
