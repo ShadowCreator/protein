@@ -37,6 +37,10 @@ def rnaToDna(sequencetochange):
             sys.exit(1)
     return sequencetochange
 
+def rnaToAa(sequencetochange):
+    
+    return sequencetochange
+
 parser = argparse.ArgumentParser()
 parser.add_argument("input_type", help="this is the format the input should be: DNA, mRNA or AA")
 parser.add_argument("output_type", help="this is the format the output should be: DNA, mRNA or AA")
@@ -70,9 +74,13 @@ if output_type == input_type:
     sequence = sequence
 elif input_type == "dna" and output_type == "mrna":
     sequence = dnaToRna(sequence)
+elif input_type == "dna" and output_type == "aa":
+    sequence = dnaToRna(sequence)
+    sequence = rnaToAa(sequence)
 elif input_type == "mrna" and output_type == "dna":
     sequence = rnaToDna(sequence)
-
+elif input_type == "mrna" and output_type == "aa":
+    sequence = rnaToAa(sequence)
 
 out_sequence = ''.join(sequence).upper()
 print(out_sequence)
