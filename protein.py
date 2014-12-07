@@ -37,7 +37,6 @@ def rnaToDna(sequencetochange):
             sys.exit(1)
     return sequencetochange
 
-
 parser = argparse.ArgumentParser()
 parser.add_argument("input_type", help="this is the format the input should be: DNA, mRNA or AA")
 parser.add_argument("output_type", help="this is the format the output should be: DNA, mRNA or AA")
@@ -61,6 +60,9 @@ if output_type != "aa" and output_type != "mrna" and output_type != "dna":
     sys.exit(1)
 if input_type != "aa" and input_type != "mrna" and input_type != "dna":
     #verbose only: print("Not DNA, mRNA and AA. Please change your input type")
+    sys.exit(1)
+if (input_type == "dna" or input_type == "mrna") and output_type == "aa":
+    #verbose
     sys.exit(1)
 
 # do the transformation
