@@ -37,16 +37,6 @@ if output_type == input_type:
     #verbose message
     sys.exit(1)
 
-# remove punctuation
-if args.verbose:
-    print("Here's the sequence befande removing punctuation:", sequence)
-for x in sequence:
-    if x == ",":
-        sequence.remove(",")
-    elif x == "-":
-        sequence.remove("-")
-if args.verbose:
-    print("Here's the sequence after removing punctuation:", sequence)
 
 # do the transformation
 if input_type == "dna" and output_type == "mrna":
@@ -59,6 +49,8 @@ if input_type == "dna" and output_type == "mrna":
             base = "c"
         elif base == "c":
             base = "g"
+        elif base == "-" or base == ",":
+            base = base
         else:
             # verbose message
             sys.exit(1)
