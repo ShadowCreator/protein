@@ -1,0 +1,5 @@
+Protein
+=======
+
+* A Protein sysnthesis converter that changes DNA, mRNA and Ammino Acids between each other
+* No dependencies and it's Python 3
