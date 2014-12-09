@@ -38,14 +38,25 @@ def rnaToDna(sequencetochange):
     return sequencetochange
 
 def rnaToAa(sequencetochange):
+    # remove punctuation
+    if args.verbose:
+        print("Here's the sequence befande removing punctuation:", sequence)
+    for x in sequence:
+        if x == ",":
+            sequence.remove(",")
+        elif x == "-":
+            sequence.remove("-")
+    if args.verbose:
+        print("Here's the sequence after removing punctuation:", sequence)
     
-    return sequencetochange
+    # add punctuation after each aa
+return sequencetochange
 
 parser = argparse.ArgumentParser()
 parser.add_argument("input_type", help="this is the format the input should be: DNA, mRNA or AA")
 parser.add_argument("output_type", help="this is the format the output should be: DNA, mRNA or AA")
 parser.add_argument("sequence",
-                    help="this is a sequence of DNA, mRNA or AA whith both - and , allowed as separators")
+                    help="this is a sequence of DNA, mRNA or AA whith both - and , allowed as separators but - is recomended")
 parser.add_argument("-v", "--verbose", action="store_true",
                     help="increase output verbosity")
 
