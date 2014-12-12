@@ -115,10 +115,13 @@ def rnaToAa(sequenceToChange):
     if args.verbose:
         print("Here's the sequence after removing punctuation:", sequence)
     
-    sequenceGroupList = list(zip(*(iter(sequenceToChange),) * 3))
+    sequenceToChange = list(zip(*(iter(sequenceToChange),) * 3))
 
-    for index, base in enumerate(sequenceGroupList):
-        sequenceGroupList[index] = ''.join(base)
+    for index, base in enumerate(sequenceToChange):
+        sequenceToChange[index] = ''.join(base)
+        sequenceToChange[index] = aaDict[sequenceToChange[index]]
+
+    print(sequenceToChange)
 
     # add punctuation after each aa
     return sequenceToChange
