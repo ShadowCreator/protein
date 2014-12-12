@@ -2,6 +2,7 @@
 
 import argparse
 import sys
+from itertools import chain, repeat, islice
 
 def dnaToRna(sequenceToChange):
     for index, base in enumerate(sequenceToChange):
@@ -121,9 +122,8 @@ def rnaToAa(sequenceToChange):
         sequenceToChange[index] = ''.join(base)
         sequenceToChange[index] = aaDict[sequenceToChange[index]]
 
-    print(sequenceToChange)
+    sequenceToChange = list(islice(chain.from_iterable(zip(repeat('-'), sequenceToChange)), 1, None))
 
-    # add punctuation after each aa
     return sequenceToChange
 
 parser = argparse.ArgumentParser()
@@ -161,10 +161,12 @@ elif input_type == "dna" and output_type == "mrna":
 elif input_type == "dna" and output_type == "aa":
     sequence = dnaToRna(sequence)
     sequence = rnaToAa(sequence)
+    sequence = ''.join(sequence)
 elif input_type == "mrna" and output_type == "dna":
     sequence = rnaToDna(sequence)
     sequence = ''.join(sequence).upper()
 elif input_type == "mrna" and output_type == "aa":
     sequence = rnaToAa(sequence)
+    sequence = ''.join(sequence)
 
 print(sequence)
