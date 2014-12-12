@@ -3,39 +3,39 @@
 import argparse
 import sys
 
-def dnaToRna(sequencetochange):
-    for index, base in enumerate(sequencetochange):
+def dnaToRna(sequenceToChange):
+    for index, base in enumerate(sequenceToChange):
         if base == "a":
-            sequencetochange[index] = "u"
+            sequenceToChange[index] = "u"
         elif base == "t":
-            sequencetochange[index] = "a"
+            sequenceToChange[index] = "a"
         elif base == "g":
-            sequencetochange[index] = "c"
+            sequenceToChange[index] = "c"
         elif base == "c":
-            sequencetochange[index] = "g"
+            sequenceToChange[index] = "g"
         elif base == "-" or base == ",":
-            sequencetochange[index] = base
+            sequenceToChange[index] = base
         else:
-            # verbose message
+            print("Sequence is incorrect, it contains:", base)
             sys.exit(1)
-    return sequencetochange
+    return sequenceToChange
 
-def rnaToDna(sequencetochange):
-    for index, base in enumerate(sequencetochange):
+def rnaToDna(sequenceToChange):
+    for index, base in enumerate(sequenceToChange):
         if base == "a":
-            sequencetochange[index] = "t"
+            sequenceToChange[index] = "t"
         elif base == "u":
-            sequencetochange[index] = "a"
+            sequenceToChange[index] = "a"
         elif base == "g":
-            sequencetochange[index] = "c"
+            sequenceToChange[index] = "c"
         elif base == "c":
-            sequencetochange[index] = "g"
+            sequenceToChange[index] = "g"
         elif base == "-" or base == ",":
-            sequencetochange[index] = base
+            sequenceToChange[index] = base
         else:
-            # verbose message
+            print("Sequence is incorrect, it contains:", base)
             sys.exit(1)
-    return sequencetochange
+    return sequenceToChange
 
 aaDict = {
     'uuu' : 'Phe',
@@ -103,7 +103,8 @@ aaDict = {
     'gga' : 'Gly',
     'ggg' : 'Gly'
 }
-def rnaToAa(sequencetochange):
+
+def rnaToAa(sequenceToChange):
     if args.verbose:
         print("Here's the sequence befande removing punctuation:", sequence)
     for x in sequence:
@@ -114,8 +115,13 @@ def rnaToAa(sequencetochange):
     if args.verbose:
         print("Here's the sequence after removing punctuation:", sequence)
     
+    sequenceGroupList = list(zip(*(iter(sequenceToChange),) * 3))
+
+    for index, base in enumerate(sequenceGroupList):
+        sequenceGroupList[index] = ''.join(base)
+
     # add punctuation after each aa
-    return sequencetochange
+    return sequenceToChange
 
 parser = argparse.ArgumentParser()
 parser.add_argument("input_type", help="this is the format the input should be: DNA, mRNA or AA")
