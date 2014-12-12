@@ -157,13 +157,14 @@ if output_type == input_type:
     sequence = sequence
 elif input_type == "dna" and output_type == "mrna":
     sequence = dnaToRna(sequence)
+    sequence = ''.join(sequence).upper()
 elif input_type == "dna" and output_type == "aa":
     sequence = dnaToRna(sequence)
     sequence = rnaToAa(sequence)
 elif input_type == "mrna" and output_type == "dna":
     sequence = rnaToDna(sequence)
+    sequence = ''.join(sequence).upper()
 elif input_type == "mrna" and output_type == "aa":
     sequence = rnaToAa(sequence)
 
-sequence = ''.join(sequence).upper()
 print(sequence)
