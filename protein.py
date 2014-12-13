@@ -17,7 +17,7 @@ def dnaToRna(sequenceToChange):
         elif base == "-" or base == ",":
             sequenceToChange[index] = base
         else:
-            print("Sequence is incorrect, it contains:", base)
+            print("Error: Sequence is incorrect, it contains:", base)
             sys.exit(1)
     return sequenceToChange
 
@@ -34,7 +34,7 @@ def rnaToDna(sequenceToChange):
         elif base == "-" or base == ",":
             sequenceToChange[index] = base
         else:
-            print("Sequence is incorrect, it contains:", base)
+            print("Error: Sequence is incorrect, it contains:", base)
             sys.exit(1)
     return sequenceToChange
 
@@ -116,6 +116,10 @@ def rnaToAa(sequenceToChange):
     if args.verbose:
         print("Here's the sequence after removing punctuation:", sequence)
     
+    if not args.nowarnings:
+        if (len(sequenceToChange) % 3):
+            print("Warning: Sequence is not a multiple of three so the AA output will be incomplete")
+
     sequenceToChange = list(zip(*(iter(sequenceToChange),) * 3))
 
     for index, base in enumerate(sequenceToChange):
@@ -131,8 +135,10 @@ parser.add_argument("input_type", help="this is the format the input should be: 
 parser.add_argument("output_type", help="this is the format the output should be: DNA, mRNA or AA")
 parser.add_argument("sequence",
                     help="this is a sequence of DNA, mRNA or AA whith both - and , allowed as separators but - is recomended")
+parser.add_argument("-n", "--nowarnings", action="store_true",
+                    help="turns off warnings")
 parser.add_argument("-v", "--verbose", action="store_true",
-                    help="increase output verbosity")
+                    help="increases output verbosity")
 
 args = parser.parse_args()
 output_type = args.output_type.lower()
@@ -144,10 +150,10 @@ if args.verbose:
     print("Here's the output type:", output_type)
     print("Here's the input type:", input_type)
 if output_type != "aa" and output_type != "mrna" and output_type != "dna":
-    print("Not DNA, mRNA and AA. Please change your output type")
+    print("Error: Not DNA, mRNA and AA. Please change your output type")
     sys.exit(1)
 if input_type != "aa" and input_type != "mrna" and input_type != "dna":
-    print("Not DNA, mRNA and AA. Please change your input type")
+    print("Error: Not DNA, mRNA and AA. Please change your input type")
     sys.exit(1)
 if input_type == "aa" and ( output_type == "dna" or output_type == "mrna"):
     #verbose
