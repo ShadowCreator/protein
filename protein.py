@@ -153,8 +153,8 @@ sequence = list(args.sequence.lower())
 
 # see codecomplete 2 for a better way of doing this using arrays
 if args.verbose:
-    print("Here's the output type:", output_type)
     print("Here's the input type:", input_type)
+    print("Here's the output type:", output_type)
 if output_type != "aa" and output_type != "mrna" and output_type != "dna":
     print("Error: Not DNA, mRNA and AA. Please change your output type")
     sys.exit(1)
