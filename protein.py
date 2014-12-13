@@ -105,6 +105,12 @@ aaDict = {
     'ggg' : 'Gly'
 }
 
+def addPunctuationToList(punctuation, oldList):
+    return list(islice(chain.from_iterable(zip(repeat(punctuation), oldList)), 1, None))
+
+def groupList(numberPerGroup, oldList):
+    return list(zip(*(iter(oldList),) * numberPerGroup))
+
 def rnaToAa(sequenceToChange):
     if args.verbose:
         print("Here's the sequence befande removing punctuation:", sequence)
@@ -120,13 +126,13 @@ def rnaToAa(sequenceToChange):
         if (len(sequenceToChange) % 3):
             print("Warning: Sequence is not a multiple of three so the AA output will be incomplete")
 
-    sequenceToChange = list(zip(*(iter(sequenceToChange),) * 3))
+    sequenceToChange = groupList(3, sequenceToChange)
 
     for index, base in enumerate(sequenceToChange):
         sequenceToChange[index] = ''.join(base)
         sequenceToChange[index] = aaDict[sequenceToChange[index]]
 
-    sequenceToChange = list(islice(chain.from_iterable(zip(repeat('-'), sequenceToChange)), 1, None))
+    sequenceToChange = addPunctuationToList('-', sequenceToChange)
 
     return sequenceToChange
 
