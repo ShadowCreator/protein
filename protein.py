@@ -4,6 +4,7 @@ import argparse
 import sys
 from itertools import chain, repeat, islice
 
+
 def dnaToRna(sequenceToChange):
     for index, base in enumerate(sequenceToChange):
         if base == "a":
@@ -20,6 +21,7 @@ def dnaToRna(sequenceToChange):
             print("Error: Sequence is incorrect, it contains:", base)
             sys.exit(1)
     return sequenceToChange
+
 
 def rnaToDna(sequenceToChange):
     for index, base in enumerate(sequenceToChange):
@@ -39,77 +41,81 @@ def rnaToDna(sequenceToChange):
     return sequenceToChange
 
 aaDict = {
-    'uuu' : 'Phe',
-    'uuc' : 'Phe',
-    'uua' : 'Leu',
-    'uug' : 'Leu',
-    'ucu' : 'Ser',
-    'ucc' : 'Ser',
-    'uca' : 'Ser',
-    'ucg' : 'Ser',
-    'uau' : 'Tyr',
-    'uac' : 'Tyr',
-    'uaa' : 'STOP',
-    'uag' : 'STOP',
-    'ugu' : 'Cys',
-    'ugc' : 'Cys',
-    'uga' : 'STOP',
-    'ugg' : 'Trp',
-    'cuu' : 'Leu',
-    'cuc' : 'Leu',
-    'cua' : 'Leu',
-    'cug' : 'Leu',
-    'ccu' : 'Pro',
-    'ccc' : 'Pro',
-    'cca' : 'Pro',
-    'ccg' : 'Pro',
-    'cau' : 'Hls',
-    'cac' : 'Hls',
-    'caa' : 'Gln',
-    'cag' : 'Gln',
-    'cgu' : 'Arg',
-    'cgc' : 'Arg',
-    'cga' : 'Arg',
-    'cgg' : 'Arg',
-    'auu' : 'Ile',
-    'auc' : 'Ile',
-    'aua' : 'Ile',
-    'aug' : 'Met',
-    'acu' : 'Thr',
-    'acc' : 'Thr',
-    'aca' : 'Thr',
-    'acg' : 'Thr',
-    'aau' : 'Asn',
-    'aac' : 'Asn',
-    'aaa' : 'Lys',
-    'aag' : 'Lys',
-    'agu' : 'Ser',
-    'agc' : 'Ser',
-    'aga' : 'Arg',
-    'agg' : 'Arg',
-    'guu' : 'Val',
-    'guc' : 'Val',
-    'gua' : 'Val',
-    'gug' : 'Val',
-    'gcu' : 'Ala',
-    'gcc' : 'Ala',
-    'gca' : 'Ala',
-    'gcg' : 'Ala',
-    'gau' : 'Asp',
-    'gac' : 'Asp',
-    'gaa' : 'Glu',
-    'gag' : 'Glu',
-    'ggu' : 'Gly',
-    'ggc' : 'Gly',
-    'gga' : 'Gly',
-    'ggg' : 'Gly'
+    'uuu': 'Phe',
+    'uuc': 'Phe',
+    'uua': 'Leu',
+    'uug': 'Leu',
+    'ucu': 'Ser',
+    'ucc': 'Ser',
+    'uca': 'Ser',
+    'ucg': 'Ser',
+    'uau': 'Tyr',
+    'uac': 'Tyr',
+    'uaa': 'STOP',
+    'uag': 'STOP',
+    'ugu': 'Cys',
+    'ugc': 'Cys',
+    'uga': 'STOP',
+    'ugg': 'Trp',
+    'cuu': 'Leu',
+    'cuc': 'Leu',
+    'cua': 'Leu',
+    'cug': 'Leu',
+    'ccu': 'Pro',
+    'ccc': 'Pro',
+    'cca': 'Pro',
+    'ccg': 'Pro',
+    'cau': 'Hls',
+    'cac': 'Hls',
+    'caa': 'Gln',
+    'cag': 'Gln',
+    'cgu': 'Arg',
+    'cgc': 'Arg',
+    'cga': 'Arg',
+    'cgg': 'Arg',
+    'auu': 'Ile',
+    'auc': 'Ile',
+    'aua': 'Ile',
+    'aug': 'Met',
+    'acu': 'Thr',
+    'acc': 'Thr',
+    'aca': 'Thr',
+    'acg': 'Thr',
+    'aau': 'Asn',
+    'aac': 'Asn',
+    'aaa': 'Lys',
+    'aag': 'Lys',
+    'agu': 'Ser',
+    'agc': 'Ser',
+    'aga': 'Arg',
+    'agg': 'Arg',
+    'guu': 'Val',
+    'guc': 'Val',
+    'gua': 'Val',
+    'gug': 'Val',
+    'gcu': 'Ala',
+    'gcc': 'Ala',
+    'gca': 'Ala',
+    'gcg': 'Ala',
+    'gau': 'Asp',
+    'gac': 'Asp',
+    'gaa': 'Glu',
+    'gag': 'Glu',
+    'ggu': 'Gly',
+    'ggc': 'Gly',
+    'gga': 'Gly',
+    'ggg': 'Gly'
 }
 
+
 def addPunctuationToList(punctuation, oldList):
-    return list(islice(chain.from_iterable(zip(repeat(punctuation), oldList)), 1, None))
+    return list(islice(chain.from_iterable(
+        zip(repeat(punctuation), oldList)), 1, None))
+
 
 def groupList(numberPerGroup, oldList):
     return list(zip(*(iter(oldList),) * numberPerGroup))
+
 
 def rnaToAa(sequenceToChange):
     if args.verbose:
@@ -121,10 +127,9 @@ def rnaToAa(sequenceToChange):
             sequence.remove("-")
     if args.verbose:
         print("Here's the sequence after removing punctuation:", sequence)
-    
-    if not args.nowarnings:
-        if (len(sequenceToChange) % 3):
-            print("Warning: Sequence is not a multiple of three so the AA output will be incomplete")
+
+    if not args.nowarnings and (len(sequenceToChange) % 3):
+        print("Warning: Sequence is not a multiple of three")
 
     sequenceToChange = groupList(3, sequenceToChange)
 
@@ -137,10 +142,15 @@ def rnaToAa(sequenceToChange):
     return sequenceToChange
 
 parser = argparse.ArgumentParser()
-parser.add_argument("input_type", help="this is the format the input should be: DNA, mRNA or AA")
-parser.add_argument("output_type", help="this is the format the output should be: DNA, mRNA or AA")
+parser.add_argument("input_type",
+                    help="""this is the format the
+                    input should be: DNA, mRNA or AA""")
+parser.add_argument("output_type",
+                    help="""this is the format the output should be
+                    : DNA, mRNA or AA""")
 parser.add_argument("sequence",
-                    help="this is a sequence of DNA, mRNA or AA whith both - and , allowed as separators but - is recomended")
+                    help="""this is a sequence of DNA, mRNA or AA with both - and , allowed
+                    as separators but - is recomended""")
 parser.add_argument("-n", "--nowarnings", action="store_true",
                     help="turns off warnings")
 parser.add_argument("-v", "--verbose", action="store_true",
@@ -161,8 +171,8 @@ if output_type != "aa" and output_type != "mrna" and output_type != "dna":
 if input_type != "aa" and input_type != "mrna" and input_type != "dna":
     print("Error: Not DNA, mRNA and AA. Please change your input type")
     sys.exit(1)
-if input_type == "aa" and ( output_type == "dna" or output_type == "mrna"):
-    #verbose
+if input_type == "aa" and (output_type == "dna" or output_type == "mrna"):
+    # verbose
     sys.exit(1)
 
 if output_type == input_type:
