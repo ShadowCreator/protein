@@ -158,6 +158,24 @@ def checkTypes(outputType, inputType):
         sys.exit(1)
 
 
+def processSequence(outputType, inputType, sequence):
+    if output_type == input_type:
+        return sequence
+    elif input_type == "dna" and output_type == "mrna":
+        sequence = dnaToRna(sequence)
+        return ''.join(sequence).upper()
+    elif input_type == "dna" and output_type == "aa":
+        sequence = dnaToRna(sequence)
+        sequence = rnaToAa(sequence)
+        return ''.join(sequence)
+    elif input_type == "mrna" and output_type == "dna":
+        sequence = rnaToDna(sequence)
+        return ''.join(sequence).upper()
+    elif input_type == "mrna" and output_type == "aa":
+        sequence = rnaToAa(sequence)
+        return ''.join(sequence)
+
+
 parser = argparse.ArgumentParser()
 parser.add_argument("input_type",
                     help="""this is the format the
@@ -177,23 +195,5 @@ args = parser.parse_args()
 output_type = args.output_type.lower()
 input_type = args.input_type.lower()
 sequence = list(args.sequence.lower())
-
 checkTypes(output_type, input_type)
-
-if output_type == input_type:
-    sequence = sequence
-elif input_type == "dna" and output_type == "mrna":
-    sequence = dnaToRna(sequence)
-    sequence = ''.join(sequence).upper()
-elif input_type == "dna" and output_type == "aa":
-    sequence = dnaToRna(sequence)
-    sequence = rnaToAa(sequence)
-    sequence = ''.join(sequence)
-elif input_type == "mrna" and output_type == "dna":
-    sequence = rnaToDna(sequence)
-    sequence = ''.join(sequence).upper()
-elif input_type == "mrna" and output_type == "aa":
-    sequence = rnaToAa(sequence)
-    sequence = ''.join(sequence)
-
-print(sequence)
+print(processSequence)
