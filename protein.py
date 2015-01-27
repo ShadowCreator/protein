@@ -141,6 +141,23 @@ def rnaToAa(sequenceToChange):
 
     return sequenceToChange
 
+
+def checkTypes(outputType, inputType):
+    # see codecomplete 2 for a better way of doing this using arrays
+    if args.verbose:
+        print("Here's the input type:", input_type)
+        print("Here's the output type:", output_type)
+    if output_type != "aa" and output_type != "mrna" and output_type != "dna":
+        print("Error: Not DNA, mRNA and AA. Please change your output type")
+        sys.exit(1)
+    if input_type != "aa" and input_type != "mrna" and input_type != "dna":
+        print("Error: Not DNA, mRNA and AA. Please change your input type")
+        sys.exit(1)
+    if input_type == "aa" and (output_type == "dna" or output_type == "mrna"):
+        # verbose
+        sys.exit(1)
+
+
 parser = argparse.ArgumentParser()
 parser.add_argument("input_type",
                     help="""this is the format the
@@ -161,19 +178,7 @@ output_type = args.output_type.lower()
 input_type = args.input_type.lower()
 sequence = list(args.sequence.lower())
 
-# see codecomplete 2 for a better way of doing this using arrays
-if args.verbose:
-    print("Here's the input type:", input_type)
-    print("Here's the output type:", output_type)
-if output_type != "aa" and output_type != "mrna" and output_type != "dna":
-    print("Error: Not DNA, mRNA and AA. Please change your output type")
-    sys.exit(1)
-if input_type != "aa" and input_type != "mrna" and input_type != "dna":
-    print("Error: Not DNA, mRNA and AA. Please change your input type")
-    sys.exit(1)
-if input_type == "aa" and (output_type == "dna" or output_type == "mrna"):
-    # verbose
-    sys.exit(1)
+checkTypes(output_type, input_type)
 
 if output_type == input_type:
     sequence = sequence
