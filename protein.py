@@ -175,25 +175,25 @@ def processSequence(outputType, inputType, sequence):
         sequence = rnaToAa(sequence)
         return ''.join(sequence)
 
-
-parser = argparse.ArgumentParser()
-parser.add_argument("input_type",
-                    help="""this is the format the
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument("input_type",
+                        help="""this is the format the
                     input should be: DNA, mRNA or AA""")
-parser.add_argument("output_type",
-                    help="""this is the format the output should be
+    parser.add_argument("output_type",
+                        help="""this is the format the output should be
                     : DNA, mRNA or AA""")
-parser.add_argument("sequence",
-                    help="""this is a sequence of DNA, mRNA or AA with both - and , allowed
+    parser.add_argument("sequence",
+                        help="""this is a sequence of DNA, mRNA or AA with both - and , allowed
                     as separators but - is recomended""")
-parser.add_argument("-n", "--nowarnings", action="store_true",
-                    help="turns off warnings")
-parser.add_argument("-v", "--verbose", action="store_true",
-                    help="increases output verbosity")
+    parser.add_argument("-n", "--nowarnings", action="store_true",
+                        help="turns off warnings")
+    parser.add_argument("-v", "--verbose", action="store_true",
+                        help="increases output verbosity")
 
-args = parser.parse_args()
-output_type = args.output_type.lower()
-input_type = args.input_type.lower()
-sequence = list(args.sequence.lower())
-checkTypes(output_type, input_type)
-print(processSequence)
+    args = parser.parse_args()
+    output_type = args.output_type.lower()
+    input_type = args.input_type.lower()
+    sequence = list(args.sequence.lower())
+    checkTypes(output_type, input_type)
+    print(processSequence(output_type, input_type, sequence))
