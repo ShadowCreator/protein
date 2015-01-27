@@ -127,18 +127,13 @@ def rnaToAa(sequenceToChange):
             sequence.remove("-")
     if args.verbose:
         print("Here's the sequence after removing punctuation:", sequence)
-
     if not args.nowarnings and (len(sequenceToChange) % 3):
         print("Warning: Sequence is not a multiple of three")
-
     sequenceToChange = groupList(3, sequenceToChange)
-
     for index, base in enumerate(sequenceToChange):
         sequenceToChange[index] = ''.join(base)
         sequenceToChange[index] = aaDict[sequenceToChange[index]]
-
     sequenceToChange = addPunctuationToList('-', sequenceToChange)
-
     return sequenceToChange
 
 
@@ -190,7 +185,6 @@ if __name__ == '__main__':
                         help="turns off warnings")
     parser.add_argument("-v", "--verbose", action="store_true",
                         help="increases output verbosity")
-
     args = parser.parse_args()
     output_type = args.output_type.lower()
     input_type = args.input_type.lower()
