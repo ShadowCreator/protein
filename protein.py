@@ -117,17 +117,19 @@ def groupList(numberPerGroup, oldList):
     return list(zip(*(iter(oldList),) * numberPerGroup))
 
 
-def rnaToAa(sequenceToChange):
-    if args.verbose:
-        print("Here's the sequence befande removing punctuation:", sequence)
-    for x in sequence:
+def rnaToAa(sequenceToChange, verbose, nowarnings):
+    if verbose:
+        print("Here's the sequence befande removing punctuation:",
+              sequenceToChange)
+    for x in sequenceToChange:
         if x == ",":
-            sequence.remove(",")
+            sequenceToChange.remove(",")
         elif x == "-":
-            sequence.remove("-")
-    if args.verbose:
-        print("Here's the sequence after removing punctuation:", sequence)
-    if not args.nowarnings and (len(sequenceToChange) % 3):
+            sequenceToChange.remove("-")
+    if verbose:
+        print("Here's the sequence after removing punctuation:",
+              sequenceToChange)
+    if not nowarnings and (len(sequenceToChange) % 3):
         print("Warning: Sequence is not a multiple of three")
     sequenceToChange = groupList(3, sequenceToChange)
     for index, base in enumerate(sequenceToChange):
@@ -137,40 +139,41 @@ def rnaToAa(sequenceToChange):
     return sequenceToChange
 
 
-def checkTypes(outputType, inputType):
+def checkTypes(outputType, inputType, verbose):
     # see codecomplete 2 for a better way of doing this using arrays
-    if args.verbose:
-        print("Here's the input type:", input_type)
-        print("Here's the output type:", output_type)
-    if output_type != "aa" and output_type != "mrna" and output_type != "dna":
+    if verbose:
+        print("Here's the input type:", inputType)
+        print("Here's the output type:", outputType)
+    if outputType != "aa" and outputType != "mrna" and outputType != "dna":
         print("Error: Not DNA, mRNA and AA. Please change your output type")
         sys.exit(1)
-    if input_type != "aa" and input_type != "mrna" and input_type != "dna":
+    if inputType != "aa" and inputType != "mrna" and inputType != "dna":
         print("Error: Not DNA, mRNA and AA. Please change your input type")
         sys.exit(1)
-    if input_type == "aa" and (output_type == "dna" or output_type == "mrna"):
+    if inputType == "aa" and (outputType == "dna" or outputType == "mrna"):
         # verbose
         sys.exit(1)
 
 
-def processSequence(outputType, inputType, sequence):
-    if output_type == input_type:
-        return sequence
-    elif input_type == "dna" and output_type == "mrna":
+def processSequence(outputType, inputType, sequence, verbose, nowarnings):
+    if inputType == outputType:
+        return ''.join(sequence).upper()
+    elif inputType == "dna" and outputType == "mrna":
         sequence = dnaToRna(sequence)
         return ''.join(sequence).upper()
-    elif input_type == "dna" and output_type == "aa":
+    elif inputType == "dna" and outputType == "aa":
         sequence = dnaToRna(sequence)
-        sequence = rnaToAa(sequence)
+        sequence = rnaToAa(sequence, verbose, nowarnings)
         return ''.join(sequence)
-    elif input_type == "mrna" and output_type == "dna":
+    elif inputType == "mrna" and outputType == "dna":
         sequence = rnaToDna(sequence)
         return ''.join(sequence).upper()
-    elif input_type == "mrna" and output_type == "aa":
-        sequence = rnaToAa(sequence)
+    elif inputType == "mrna" and outputType == "aa":
+        sequence = rnaToAa(sequence, verbose, nowarnings)
         return ''.join(sequence)
 
-if __name__ == '__main__':
+
+def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("input_type",
                         help="""this is the format the
@@ -189,5 +192,9 @@ if __name__ == '__main__':
     output_type = args.output_type.lower()
     input_type = args.input_type.lower()
     sequence = list(args.sequence.lower())
-    checkTypes(output_type, input_type)
-    print(processSequence(output_type, input_type, sequence))
+    checkTypes(output_type, input_type, args.verbose)
+    print(processSequence(output_type, input_type, sequence, args.verbose,
+                          args.nowarnings))
+
+if __name__ == '__main__':
+    main()
