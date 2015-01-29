@@ -18,7 +18,8 @@ def dnaToRna(sequenceToChange):
         elif base == "-" or base == ",":
             sequenceToChange[index] = base
         else:
-            print("Error: Sequence is incorrect, it contains:", base)
+            print("Error: Sequence is incorrect, it contains:", base,
+                  file=sys.stderr)
             sys.exit(1)
     return sequenceToChange
 
@@ -36,7 +37,8 @@ def rnaToDna(sequenceToChange):
         elif base == "-" or base == ",":
             sequenceToChange[index] = base
         else:
-            print("Error: Sequence is incorrect, it contains:", base)
+            print("Error: Sequence is incorrect, it contains:", base,
+                  file=sys.stderr)
             sys.exit(1)
     return sequenceToChange
 
@@ -130,7 +132,8 @@ def rnaToAa(sequenceToChange, verbose, nowarnings):
         print("Here's the sequence after removing punctuation:",
               sequenceToChange)
     if not nowarnings and (len(sequenceToChange) % 3):
-        print("Warning: Sequence is not a multiple of three")
+        print("Warning: Sequence is not a multiple of three",
+              file=sys.stderr)
     sequenceToChange = groupList(3, sequenceToChange)
     for index, base in enumerate(sequenceToChange):
         sequenceToChange[index] = ''.join(base)
@@ -145,10 +148,12 @@ def checkTypes(outputType, inputType, verbose):
         print("Here's the input type:", inputType)
         print("Here's the output type:", outputType)
     if outputType != "aa" and outputType != "mrna" and outputType != "dna":
-        print("Error: Not DNA, mRNA and AA. Please change your output type")
+        print("Error: Not DNA, mRNA and AA. Please change your output type",
+              file=sys.stderr)
         sys.exit(1)
     if inputType != "aa" and inputType != "mrna" and inputType != "dna":
-        print("Error: Not DNA, mRNA and AA. Please change your input type")
+        print("Error: Not DNA, mRNA and AA. Please change your input type",
+              file=sys.stderr)
         sys.exit(1)
     if inputType == "aa" and (outputType == "dna" or outputType == "mrna"):
         # verbose
